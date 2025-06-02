@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:latlong2/latlong.dart';
 import '../Model/Bus.dart';
 
-Strings hostname = 'https://rest.citybus.gr/api/v1/el/110';
+String hostname = 'https://rest.citybus.gr/api/v1/el/110';
 
 class BusStopController{
 
