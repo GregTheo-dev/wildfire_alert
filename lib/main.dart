@@ -341,7 +341,7 @@ class _MapScreenState extends State<MapScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Close'),//experiment
+              child: const Text('Close'),
             ),
           ],
         );
