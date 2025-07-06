@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:WildFireAlert/Controller/FireController.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -33,8 +34,9 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   final MapController _mapController = MapController();
+  final FireController _fireController = FireController();
   final loc.Location location = loc.Location();
-  late List<Marker> fireMarkers;
+  List<Marker> fireMarkers = [];
   LatLng? _userLocation = null;
   bool showBusList = false;
   bool isLoading = false;
@@ -45,8 +47,8 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     _getUserLocation();
+    _fireController.getFire();
   }
-
 
   // Function to show dialog prompting user to enable location services
   Future<bool> _showLocationServicesDialog() async {
@@ -204,10 +206,6 @@ class _MapScreenState extends State<MapScreen> {
                         ),
                       ),
                     ],
-                  ),
-                if (isLoading)
-                  const Center(
-                    child: CircularProgressIndicator(),
                   ),
               ],
             ),

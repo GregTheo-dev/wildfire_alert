@@ -36,7 +36,7 @@ dependencies:
   geolocator: ^9.0.2
   latlong2: ^0.8.1  # For handling geographic coordinates
   dio: ^5.7.0
-  barcode_scan2: ^4.1.4
+  csv: 5.1.0
 
 
 
