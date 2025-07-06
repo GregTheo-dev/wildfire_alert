@@ -34,8 +34,8 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   final MapController _mapController = MapController();
   final loc.Location location = loc.Location();
+  late List<Marker> fireMarkers;
   LatLng? _userLocation = null;
-  Timer? _timer = null;
   bool showBusList = false;
   bool isLoading = false;
   late String token;
@@ -127,7 +127,6 @@ class _MapScreenState extends State<MapScreen> {
       print("User location: ${_userLocation?.latitude}, ${_userLocation?.longitude}");
   }
 
-
   dialogBox(String message) {
     showDialog(
       context: context,
@@ -188,7 +187,9 @@ class _MapScreenState extends State<MapScreen> {
                   urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                   subdomains: const ['a', 'b', 'c'], // OSM tile servers
                 ),
-                //MarkerLayer(markers: busMarkers),
+                MarkerLayer(
+                    markers: fireMarkers
+                ),
                 if (_userLocation != null)
                   MarkerLayer(
                     markers: [
