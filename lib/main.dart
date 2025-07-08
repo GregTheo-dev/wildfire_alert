@@ -7,6 +7,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart' as loc;
 
+import 'Model/Fire.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'OpenStreetMap with Buses',
+      title: 'OpenStreetMap with Fires',
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
       ),
@@ -35,6 +37,7 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   final MapController _mapController = MapController();
   final FireController _fireController = FireController();
+  List<Fire> fires = [];
   final loc.Location location = loc.Location();
   List<Marker> fireMarkers = [];
   LatLng? _userLocation = null;
@@ -47,8 +50,42 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     _getUserLocation();
-    _fireController.getFire();
+    getFires();
   }
+
+  void onFireTap(Fire fire){
+    String fireInfo = "";
+    //TODO
+  }
+
+  Future<void> getFires() async {
+    fires = await _fireController.getFires();
+    if(fires.isEmpty){
+      dialogBox("No fires detected");
+    }
+    List<Marker> markers = [];
+    for (var fire in fires) {
+      markers.add(
+        Marker(
+          width: 50.0,
+          height: 50.0,
+          point: fire.location,
+          builder: (ctx) =>
+              GestureDetector(
+                onTap: () {
+                  onFireTap(fire);
+                },
+                child: Icon(Icons.local_fire_department, color: Colors.red,),
+              ),
+        ),
+      );
+    }
+    fireMarkers = markers;
+    setState(() {
+
+    });
+  }
+
 
   // Function to show dialog prompting user to enable location services
   Future<bool> _showLocationServicesDialog() async {
@@ -166,10 +203,9 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Wildfire Alert"),
+        title: Text("Wildfire Alert Greece"),
         centerTitle: true,
         backgroundColor: Colors.lightGreenAccent,
       ),

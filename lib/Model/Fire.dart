@@ -22,9 +22,10 @@ class Fire {
   double brightTi5;
   double scan;
   double track;
-  DateTime acqDateTime;
+  String acqDate;
+  String time;
 
   Fire(this.countryId, this.location, this.brightTi4, this.brightTi5, this.scan,
-      this.track, this.acqDateTime);
+      this.track, this.acqDate, this.time);
   
 }
