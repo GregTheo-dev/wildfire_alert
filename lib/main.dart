@@ -56,10 +56,7 @@ class _MapScreenState extends State<MapScreen> {
     getFires();
   }
 
-  void onFireTap(Fire fire){
-    String fireInfo = "";
-    //TODO show fire information
-  }
+
 
   Future<void> getFires() async {
     fires = await _fireController.getFires();
@@ -88,7 +85,7 @@ class _MapScreenState extends State<MapScreen> {
           builder: (ctx) =>
               GestureDetector(
                 onTap: () {
-                  onFireTap(fire);
+                  dialogBox(fire.toString());
                 },
                 child: Icon(Icons.local_fire_department, color: Colors.red,),
               ),
