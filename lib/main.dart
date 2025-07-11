@@ -224,6 +224,7 @@ class _MapScreenState extends State<MapScreen> {
                 TileLayer(
                   urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                   subdomains: const ['a', 'b', 'c'], // OSM tile servers
+                  userAgentPackageName: 'com.me.wildfire_alert',
                 ),
                 MarkerLayer(
                     markers: fireMarkers
