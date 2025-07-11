@@ -23,7 +23,7 @@ class Fire {
   double scan;
   double track;
   String acqDate;
-  String time;
+  int time;
 
   Fire(this.countryId, this.location, this.brightTi4, this.brightTi5, this.scan,
       this.track, this.acqDate, this.time);

@@ -14,13 +14,10 @@ class FireController{
         'https://firms.modaps.eosdis.nasa.gov/api/country/csv/${mapKey}/VIIRS_SNPP_NRT/GRC/1',
         options: Options(responseType: ResponseType.plain),
       );
+
       if (response.statusCode == 200) {
         List<Fire> fires = [];
-        List<List<dynamic>> csvTable = const CsvToListConverter().convert(response.data!);
-        //No fires
-        if(csvTable.length == 1){
-         return [];
-        }
+        List<List<dynamic>> csvTable = const CsvToListConverter(eol: '\n').convert(response.data!);
         for(var row in csvTable.sublist(1)){
           //Make a new fire
           LatLng loc = LatLng(row[1], row[2]);

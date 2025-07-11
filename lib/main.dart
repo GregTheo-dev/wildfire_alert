@@ -46,7 +46,7 @@ class _MapScreenState extends State<MapScreen> {
   bool isLoading = false;
   late String token;
   bool fireDetected = false;
-  bool showAlert = true;
+  bool showAlert = false;
 
 
   @override
@@ -58,7 +58,7 @@ class _MapScreenState extends State<MapScreen> {
 
   void onFireTap(Fire fire){
     String fireInfo = "";
-    //TODO
+    //TODO show fire information
   }
 
   Future<void> getFires() async {
@@ -68,9 +68,9 @@ class _MapScreenState extends State<MapScreen> {
       fireDetected = false;
       showAlert = true;
       setState(() {
+
       });
-      var duration = const Duration(seconds: 2);
-      sleep(duration);
+      await Future.delayed(const Duration(seconds: 3));
       showAlert = false;
       setState(() {
       });
@@ -98,8 +98,7 @@ class _MapScreenState extends State<MapScreen> {
     fireMarkers = markers;
     setState(() {
     });
-    var duration = const Duration(seconds: 2);
-    sleep(duration);
+    await Future.delayed(const Duration(seconds: 5));
     showAlert = false;
     setState(() {
     });
