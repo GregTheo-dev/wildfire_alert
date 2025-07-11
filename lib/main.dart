@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:WildFireAlert/Controller/FireController.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,8 @@ class _MapScreenState extends State<MapScreen> {
   bool showBusList = false;
   bool isLoading = false;
   late String token;
+  bool fireDetected = false;
+  bool showAlert = true;
 
 
   @override
@@ -61,8 +64,20 @@ class _MapScreenState extends State<MapScreen> {
   Future<void> getFires() async {
     fires = await _fireController.getFires();
     if(fires.isEmpty){
-      dialogBox("No fires detected");
+     //dialogBox("No fires detected");
+      fireDetected = false;
+      showAlert = true;
+      setState(() {
+      });
+      var duration = const Duration(seconds: 2);
+      sleep(duration);
+      showAlert = false;
+      setState(() {
+      });
+      return;
     }
+    fireDetected = true;
+    showAlert = true;
     List<Marker> markers = [];
     for (var fire in fires) {
       markers.add(
@@ -82,7 +97,11 @@ class _MapScreenState extends State<MapScreen> {
     }
     fireMarkers = markers;
     setState(() {
-
+    });
+    var duration = const Duration(seconds: 2);
+    sleep(duration);
+    showAlert = false;
+    setState(() {
     });
   }
 
@@ -246,8 +265,24 @@ class _MapScreenState extends State<MapScreen> {
                   ),
               ],
             ),
-
-            //User location button
+            if(showAlert)
+              Container(
+                alignment: Alignment.topCenter,
+                //color: Colors.white,
+                child: Card(
+                  child: Column(
+                   mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.notification_important, size: 40,color: fireDetected? Colors.red : Colors.green,),
+                        title: fireDetected? Text('Warning: Fires detected!', textAlign: TextAlign.center,) : Text('No fires detected. You are safe', textAlign: TextAlign.center,),
+                        subtitle: !fireDetected? Text('Please close the app', textAlign: TextAlign.center,) : null,
+                      ),
+                    ],
+                  ),
+                )
+              ),
+              //User location button
             Positioned(
               bottom: 40,
               right: 10,
