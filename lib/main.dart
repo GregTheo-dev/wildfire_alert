@@ -218,11 +218,11 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Wildfire Alert Greece"),
-        centerTitle: true,
-        backgroundColor: Colors.lightGreenAccent,
-      ),
+      //appBar: AppBar(
+        //title: Text("Wildfire Alert Greece"),
+       // centerTitle: true,
+       // backgroundColor: Colors.lightGreenAccent,
+     // ),
       body: Stack(
           children: [
             FlutterMap(
@@ -261,21 +261,24 @@ class _MapScreenState extends State<MapScreen> {
               ],
             ),
             if(showAlert)
-              Container(
-                alignment: Alignment.topCenter,
-                //color: Colors.white,
-                child: Card(
-                  child: Column(
-                   mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        leading: Icon(Icons.notification_important, size: 40,color: fireDetected? Colors.red : Colors.green,),
-                        title: fireDetected? Text('Warning: Fires detected!', textAlign: TextAlign.center,) : Text('No fires detected. You are safe', textAlign: TextAlign.center,),
-                        subtitle: !fireDetected? Text('Please close the app', textAlign: TextAlign.center,) : null,
-                      ),
-                    ],
-                  ),
-                )
+              Padding(
+                padding: const EdgeInsets.all(19.0),
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  //color: Colors.white,
+                  child: Card(
+                    child: Column(
+                     mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ListTile(
+                          leading: Icon(Icons.notification_important, size: 40,color: fireDetected? Colors.red : Colors.green,),
+                          title: fireDetected? Text('Warning: Fires detected!', textAlign: TextAlign.center,) : Text('No fires detected. You are safe', textAlign: TextAlign.center,),
+                          subtitle: !fireDetected? Text('Please close the app', textAlign: TextAlign.center,) : null,
+                        ),
+                      ],
+                    ),
+                  )
+                ),
               ),
               //User location button
             Positioned(
